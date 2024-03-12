@@ -1,0 +1,27 @@
+name: Telegram Bot
+
+on:
+  push:
+    branches:
+      - main # Или другая ветка, в которую вы хотите делать push для запуска бота
+
+jobs:
+  build:
+    runs-on: ubuntu-latest # Выбор ОС, на которой будет выполняться рабочий процесс
+
+    steps:
+      - name: Checkout repository # Шаг клонирования репозитория
+        uses: actions/checkout@v2
+
+      - name: Set up Python # Шаг установки Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.12.2 # Версия Python, которую вы хотите использовать
+
+      - name: Install dependencies # Шаг установки зависимостей
+        run: |
+          python -m pip3 install --upgrade pip
+          pip3 install -r requirements.txt  # Замените на ваш файл зависимостей, если он называется по-другому
+
+      - name: Run Telegram bot # Шаг запуска бота
+        run: python bot.py # Путь к файлу вашего бота
